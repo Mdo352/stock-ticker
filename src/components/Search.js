@@ -1,18 +1,34 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
     state = {
         text: ''
     };
 
+    static propTypes = {
+        searchStocks: PropTypes.func.isRequired,
+        clearStocks: PropTypes.func.isRequired,
+        showClear: PropTypes.bool.isRequired,
+        setAlert: PropTypes.func.isRequired,
+    }
+    
+    
     render() {
-
         const onSubmit = e => {
             e.preventDefault();
-            console.log(this.state.text)
+            if (this.state.text === ''){
+                console.log('nothing to search')
+                this.props.setAlert('Please Enter Something', 'dark')
+            }else{
+                this.props.searchStocks(this.state.text);
+                this.setState({ text: ''});
+            }
           };
-
+    
         const onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+        const {showClear, clearStocks} = this.props;
 
         return (
             <Fragment>
@@ -22,6 +38,10 @@ class Search extends Component {
                         <input type='submit' value='Search' className='btn btn-lg btn-dark'/>
                     </div>
                 </form>
+                {showClear && (
+                    <button className="btn btn-dark btn-lg" onClick={clearStocks}> Clear </button>
+
+                )}
             </Fragment>
         )
     }

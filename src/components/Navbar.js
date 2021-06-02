@@ -1,33 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-class Navbar extends Component {
-    static defaultProps = {
-        title: 'My Finance',
-        icon: 'fas fa-comment-dollar'
-    }
+const Navbar = props => {
+    const {icon, title} = props;
 
-    static propTypes = {
-        title: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-    }
-
-    render() {
-        return (
-            
-            <nav className="navbar navbar-expand-lg navbar-dark bg-success">
-                <div className='container'>
-                    <div className="navbar-brand"><i className={this.props.icon}></i> {this.props.title}</div>
-                    <div className="collapse navbar-collapse" >
-                        <div className="navbar-nav">
-                            <a className="nav-item nav-link" href="/">Home </a>
-                            <a className="nav-item nav-link" href="/saved">Saved</a>
-                        </div>
+    return (
+        
+        <nav className="navbar navbar-expand-lg navbar-dark bg-success">
+            <div className='container'>
+                <div className="navbar-brand"><i className={icon}></i> {title}</div>
+                <div className="collapse navbar-collapse" >
+                    <div className="nav navbar-nav mr-auto">
+                        <Link className="nav-item nav-link" to="/">Home </Link>
+                        <Link className="nav-item nav-link" to="/saved">Saved</Link>
                     </div>
                 </div>
-            </nav>
-        )
-    }
+            </div>
+        </nav>
+    )
 }
+
+Navbar.defaultProps = {
+    title: 'My Finance',
+    icon: 'fas fa-comment-dollar'
+}
+
+Navbar.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+}
+
 
 export default Navbar
